@@ -44,6 +44,16 @@ class MockResponseNoOp:
         return {}
 
 
+class MockPopen(object):
+    def __init__(self, stdout=b"{}", stderr=b"", returncode=0):
+        self.stdout = stdout
+        self.stderr = stderr
+        self.returncode = returncode
+
+    def communicate(self):
+        return self.stdout, self.stderr
+
+
 def if_mock_connections(*decorators):
     def apply_all(f):
         for d in reversed(decorators):
